@@ -20,8 +20,17 @@ class EmailAddress(models.Model):
         settings.AUTH_USER_MODEL,
         verbose_name=_("user"),
         on_delete=models.CASCADE,
+        null=True
     )
-    email = models.EmailField(
+    entity = models.ForeignKey(
+        Entity,
+        verbose_name=_("entity"),
+        on_delete=models.CASCADE,
+        related_name="entity_email",
+        null=True
+    )
+    alias = models.CharField('Alias', max_length=50, blank=True)
+    email = CharPGPSymmetricKeyField(
         max_length=app_settings.EMAIL_MAX_LENGTH,
         verbose_name=_("email address"),
     )
@@ -31,6 +40,7 @@ class EmailAddress(models.Model):
     objects = EmailAddressManager()
 
     class Meta:
+        db_table = "ent_email_addresses"
         verbose_name = _("email address")
         verbose_name_plural = _("email addresses")
         unique_together = [("user", "email")]
