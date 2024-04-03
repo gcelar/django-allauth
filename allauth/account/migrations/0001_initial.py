@@ -5,6 +5,7 @@ import django.utils.timezone
 from django.conf import settings
 from django.db import migrations, models
 
+from pgcrypto.fields import CharPGPSymmetricKeyField
 
 UNIQUE_EMAIL = getattr(settings, "ACCOUNT_UNIQUE_EMAIL", True)
 
@@ -29,10 +30,18 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "email",
-                    models.EmailField(
+                    CharPGPSymmetricKeyField(
                         unique=UNIQUE_EMAIL,
                         max_length=75,
                         verbose_name="email address",
+                    ),
+                ),
+                (
+                    'alias',
+                    models.CharField(
+                        blank=True, 
+                        max_length=50, 
+                        verbose_name='Alias'
                     ),
                 ),
                 (
@@ -46,13 +55,25 @@ class Migration(migrations.Migration):
                 (
                     "user",
                     models.ForeignKey(
+                        null=True,
                         verbose_name="user",
                         to=settings.AUTH_USER_MODEL,
                         on_delete=models.CASCADE,
                     ),
                 ),
+                (
+                    'entity',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='entity_email',
+                        to='entities.entity',
+                        verbose_name='entity'
+                    ),
+                ),
             ],
             options={
+                "db_table": 'ent_email_addresses',
                 "verbose_name": "email address",
                 "verbose_name_plural": "email addresses",
             },
