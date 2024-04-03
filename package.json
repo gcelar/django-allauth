@@ -1,5 +1,5 @@
 {
-  "name": "django-allauth",
+  "name": "django-allauth-tweaked",
   "devDependencies": {
     "standard": "^17.1.0"
   },
