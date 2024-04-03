@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db import migrations, models
 
 from pgcrypto.fields import CharPGPSymmetricKeyField
+from entities.models.entities import Entity
 
 UNIQUE_EMAIL = getattr(settings, "ACCOUNT_UNIQUE_EMAIL", True)
 
