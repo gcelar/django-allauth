@@ -14,6 +14,8 @@ from . import app_settings, signals
 from .adapter import get_adapter
 from .managers import EmailAddressManager, EmailConfirmationManager
 
+from pgcrypto.fields import CharPGPSymmetricKeyField
+from entities.models.entities import Entity
 
 class EmailAddress(models.Model):
     user = models.ForeignKey(
