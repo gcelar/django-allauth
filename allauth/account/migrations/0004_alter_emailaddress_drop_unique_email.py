@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import migrations, models
 
+from pgcrypto.fields import CharPGPSymmetricKeyField
 
 EMAIL_MAX_LENGTH = getattr(settings, "ACCOUNT_EMAIL_MAX_LENGTH", 254)
 
@@ -14,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="emailaddress",
             name="email",
-            field=models.EmailField(
+            field=CharPGPSymmetricKeyField(
                 max_length=EMAIL_MAX_LENGTH, verbose_name="email address"
             ),
         ),
