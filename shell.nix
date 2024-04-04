@@ -1,7 +1,7 @@
 with import <nixpkgs> {};
 
 stdenv.mkDerivation {
-    name = "django-allauth";
+    name = "django-allauth-tweaked";
     buildInputs = [
         black
         gettext
